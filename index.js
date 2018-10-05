@@ -10,7 +10,7 @@ app.use(express.static('views'));
  io.on('connection', function(socket){
    console.log('a user connected', socket.id);
    socket.on('disconnect', function(){
-     console.log('user disconnected', socket.id);
+     io.emit('chat message', socket.id + " user disconnected");
    });
  });
 
@@ -23,9 +23,9 @@ app.use(express.static('views'));
 
 //chat message shared by connected users
 io.on('connection', function(socket){
-  io.emit('chat message', "a user connected");
+  io.emit('chat message', socket.id + " user connected");
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    io.emit('chat message', socket.id + " : "+msg);
   });
 });
 
