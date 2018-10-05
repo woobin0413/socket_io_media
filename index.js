@@ -14,12 +14,12 @@ app.use(express.static('views'));
    });
  });
 
- //chat message printed in console
- io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    console.log('message: ' + msg);
-  });
-});
+//  //chat message printed in console
+//  io.on('connection', function(socket){
+//   socket.on('chat message', function(msg){
+//     console.log('message: ' + msg);
+//   });
+// });
 
 //chat message shared by connected users
 io.on('connection', function(socket){
