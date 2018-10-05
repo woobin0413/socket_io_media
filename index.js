@@ -24,6 +24,7 @@ app.use(express.static('views'));
 //chat message shared by connected users
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
+    io.emit('chat message', "a user connected");
     io.emit('chat message', msg);
   });
 });
