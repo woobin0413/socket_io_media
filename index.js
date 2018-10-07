@@ -1,26 +1,76 @@
+// Setup basic express server
 var express = require('express');
-var app = require('express')();
+var app = express();
+var path = require('path');
 var server = require('http').createServer(app);
-// http server를 socket.io server로 upgrade한다
 var io = require('socket.io')(server);
-app.use(express.static('views'));
-// localhost:3000으로 서버에 접속하면 클라이언트로 index.html을 전송한다
+var port = process.env.PORT || 3000;
 
-// namespace /chat에 접속한다.
-var chat = io.of('/chat').on('connection', function(socket) {
-  socket.on('chat message', function(data){
-    console.log('message from client: ', data);
-
-    var name = socket.name = data.name;
-    var room = socket.room = data.room;
-
-    // room에 join한다
-    socket.join(room);
-    // room에 join되어 있는 클라이언트에게 메시지를 전송한다
-    chat.to(room).emit('chat message', data.msg);
-  });
+server.listen(port, () => {
+  console.log('Server listening at port %d', port);
 });
 
-server.listen(3000, function() {
-  console.log('Socket IO server listening on port 3000');
+// Routing
+app.use(express.static('views'));
+
+// Chatroom
+
+var numUsers = 0;
+
+io.on('connection', (socket) => {
+  var addedUser = false;
+
+  // when the client emits 'new message', this listens and executes
+  socket.on('new message', (data) => {
+    // we tell the client to execute 'new message'
+    socket.broadcast.emit('new message', {
+      username: socket.username,
+      message: data
+    });
+  });
+
+  // when the client emits 'add user', this listens and executes
+  socket.on('add user', (username) => {
+    if (addedUser) return;
+
+    // we store the username in the socket session for this client
+    socket.username = username;
+    ++numUsers;
+    addedUser = true;
+    socket.emit('login', {
+      numUsers: numUsers
+    });
+    // echo globally (all clients) that a person has connected
+    socket.broadcast.emit('user joined', {
+      username: socket.username,
+      numUsers: numUsers
+    });
+  });
+
+  // when the client emits 'typing', we broadcast it to others
+  socket.on('typing', () => {
+    socket.broadcast.emit('typing', {
+      username: socket.username
+    });
+  });
+
+  // when the client emits 'stop typing', we broadcast it to others
+  socket.on('stop typing', () => {
+    socket.broadcast.emit('stop typing', {
+      username: socket.username
+    });
+  });
+
+  // when the user disconnects.. perform this
+  socket.on('disconnect', () => {
+    if (addedUser) {
+      --numUsers;
+
+      // echo globally that this client has left
+      socket.broadcast.emit('user left', {
+        username: socket.username,
+        numUsers: numUsers
+      });
+    }
+  });
 });
