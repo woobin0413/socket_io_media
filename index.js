@@ -4,17 +4,15 @@ var app = express();
 var path = require('path');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var port = process.env.PORT || 3000;
 
-server.listen(port, () => {
-  console.log('Server listening at port %d', port);
+server.listen(3000, () => {
+  console.log('Server listening at port on 3000');
 });
 
 // Routing
 app.use(express.static('views'));
 
 // Chatroom
-
 var numUsers = 0;
 
 io.on('connection', (socket) => {
