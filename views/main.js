@@ -149,6 +149,7 @@ $(function() {
     return $('<div/>').text(input).html();
   }
 
+  // a function can be made
   // Updates the typing event
   const updateTyping = () => {
     if (connected) {
