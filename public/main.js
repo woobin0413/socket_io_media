@@ -9,4 +9,8 @@ $(function () {
          $('#messages').append($('<li>').text(msg));
          window.scrollTo(0, document.body.scrollHeight);
        });
-     });
+
+       socket.on('disconnect', function(){
+     $('#messages').append($('<li>').text("a user has been disconnected"));
+   });
+  });
