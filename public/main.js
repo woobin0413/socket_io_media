@@ -14,10 +14,4 @@ $(function () {
      socket.on('user left', function(data){
        $('#messages').append($('<li>').text("a user has been disconnected"));
      });
-
-     socket.on('disconnect', function(){
-       $('#messages').append($('<li>').text("a user has been disconnected"));
-     });
-
-
-  });
+});
