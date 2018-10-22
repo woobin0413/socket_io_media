@@ -18,10 +18,8 @@ io.on('connection', function(socket) {
     io.emit('chat message', msg);
   });
 
-  // when the user disconnects... perform this
-  socket.on('disconnect', function() {
-      // echo globally that this client has left
-      console.log('user disconnected');
+
+  socket.on('disconnect',function(){
       socket.broadcast.emit('user left');
-    });
   });
+});
