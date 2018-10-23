@@ -7,11 +7,15 @@ $(function () {
        });
 
        socket.on('chat message', function(msg){
-         $('#messages').append($('<li>').text(msg));
+         $('#messages').append($('<p>').text(msg));
          window.scrollTo(0, document.body.scrollHeight);
        });
 
      socket.on('user left', function(data){
-       $('#messages').append($('<li>').text("a user has been disconnected"));
+       $('#messages').append($('<p>').text("a user has been disconnected"));
+     });
+
+     socket.on('user joined', function(data){
+       $('#messages').append($('<p>').text("a user has joined"));
      });
 });
