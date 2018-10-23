@@ -16,6 +16,7 @@ $(function () {
      });
 
      socket.on('user joined', function(data){
-       $('#messages').append($('<p>').text("a user has joined"));
+       $('#messages').append($('<p>').text("a user has joined : " + data));
      });
+
 });

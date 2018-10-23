@@ -13,7 +13,7 @@ server.listen(3000, function() {
 app.use(express.static('public'));
 
 io.on('connection', function(socket) {
-  socket.broadcast.emit('user joined');
+  socket.broadcast.emit('user joined', socket.id);
   console.log(socket.id);
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
