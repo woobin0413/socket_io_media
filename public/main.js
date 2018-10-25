@@ -19,4 +19,8 @@ $(function () {
        $('#messages').append($('<p>').text("a user has joined : " + data));
      });
 
+     socket.on('iframe info', function(data){
+       $('#messages').append($('<p>').text("iframe video info : " + data));
+     });
+
 });

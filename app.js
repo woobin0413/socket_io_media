@@ -4,10 +4,9 @@ var app = express();
 var path = require('path');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-// var fetchVideoInfo = require('youtube-info');
-// fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
-//   console.log(videoInfo.duration);
-// });
+
+var fetchVideoInfo = require('youtube-info');
+
 
 server.listen(3000, function() {
   console.log('Server listening at port on 3000');
@@ -19,6 +18,9 @@ app.use(express.static('public'));
 
 io.on('connection', function(socket) {
   socket.broadcast.emit('user joined', socket.id);
+  fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
+    socket.broadcast.emit('iframe info', videoInfo.duration);
+  });  
   console.log(socket.id);
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
