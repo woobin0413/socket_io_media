@@ -9,7 +9,7 @@ server.listen(3000, function() {
   console.log('Server listening at port on 3000');
 });
 
-// Routing..
+// Routing...
 app.use(express.static('public'));
 
 io.on('connection', function(socket) {
