@@ -4,10 +4,10 @@ var app = express();
 var path = require('path');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var fetchVideoInfo = require('youtube-info');
-fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
-  console.log(videoInfo.duration);
-});
+// var fetchVideoInfo = require('youtube-info');
+// fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
+//   console.log(videoInfo.duration);
+// });
 
 server.listen(3000, function() {
   console.log('Server listening at port on 3000');
