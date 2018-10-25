@@ -22,11 +22,9 @@
   .video_comment{
 
     background-color: rgba(79, 64, 18, 0.19);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+
     width: 100%;
-    height: 40%;
+    height: 20%;
   }
   #messages p{
     color: rgb(198, 66, 17);
@@ -43,7 +41,7 @@
 
   </div>
   <div class= "video_play">
-<iframe id= "video_id" width="100%" height="50%" src="https://www.youtube.com/embed/fc97JarwUEc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="500px" height="200px" src="https://www.youtube.com/embed/zOeUbbJXtRQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   </div>
   <div class= "video_comment">
     <ul class="messages"></ul>
@@ -61,9 +59,14 @@
 
 
 
+<div id="player"></div>
+<br>
+<button id="pauseBtn" type="button" onclick="onclickPause()">pause</button>
+<button id="startBtn" type="button" onclick="onclickStart()">start</button>
+<div id="messages">
 
 
-<div id="messages"></div>
+</div>
    <form action="">
      <input id="m" autocomplete="off" /><button>Send</button>
    </form>
@@ -74,5 +77,28 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/main.js"></script>
+<script src="http://www.youtube.com/player_api"></script>
+<script>
+var player;
+   function onYouTubeIframeAPIReady() {
+       player = new YT.Player('player', {
+           height: '360',
+           width: '640',
+           videoId: 'zOeUbbJXtRQ'
+       });
+   }
+   function onclickPause() {
+    player.pauseVideo();
+};
+
+function onclickStart() {
+ player.playVideo();
+};
+
+
+
+
+
+</script>
 </body>
 </html>

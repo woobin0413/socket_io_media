@@ -28,7 +28,7 @@ io.on('connection', function(socket) {
   fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
     socket.broadcast.emit('iframe info', videoInfo.duration);
   });
-  console.log(socket.id);
+
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
