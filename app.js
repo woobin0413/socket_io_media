@@ -6,13 +6,14 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 var fetchVideoInfo = require('youtube-info');
-var cheerio = require('cheerio')
-var $ = cheerio.load('<h2 class="title">Hello world</h2>')
-
-$('h2.title').text('Hello there!')
-$('h2').addClass('welcome')
-
-$.html()
+// var cheerio = require('cheerio')
+// var $ = cheerio.load(mainPageContent);
+//
+// $('iframe').each(function(index, element) {
+//     var url = $(element).attr('src'); // --> Get the URL of the iframe
+//
+//     // Do something with the URL of the iframe here
+// });
 
 server.listen(3000, function() {
   console.log('Server listening at port on 3000');
