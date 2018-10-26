@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+  body
+    .video_box
+      .headline
+      .video_play
+        iframe(width='500px', height='200px', src='https://www.youtube.com/embed/zOeUbbJXtRQ', frameborder='0', allow='autoplay; encrypted-media', allowfullscreen='')
+      .video_comment
+        ul.messages
+    #player
+    br
+    button#pauseBtn(type='button', onclick='onclickPause()') pause
+    button#startBtn(type='button', onclick='onclickStart()') start
+    #messages
+    form(action='')
+      input#m(autocomplete='off')
+      button Send
+      
+  script(src='https://cdn.socket.io/socket.io-1.2.0.js')
+  script(src='https://code.jquery.com/jquery-1.11.1.js')
+  script(src='/socket.io/socket.io.js')
+  script(src='/main.js')
