@@ -21,13 +21,15 @@ app.get('/',function(req,res){
 
 
 io.on('connection', function(socket) {
-  socket.broadcast.emit('user joined', socket.id);
-  fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
-    socket.broadcast.emit('iframe info', videoInfo.duration);
-  });
+  socket.broadcast.emit('user joined');
+  // fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
+  //   socket.broadcast.emit('iframe info', videoInfo.duration);
+  // });
 
-  socket.on('chat message', function(msg){
+  socket.on('chat message', function(msg,user){
     io.emit('chat message', msg);
+    console.log(user);
+
   });
 
   socket.on('disconnect',function(){
