@@ -22,16 +22,23 @@ app.get('/',function(req,res){
 
 io.on('connection', function(socket) {
   socket.broadcast.emit('user joined');
-  // fetchVideoInfo('zOeUbbJXtRQ').then(function (videoInfo) {
-  //   socket.broadcast.emit('iframe info', videoInfo.duration);
-  // });
+
 
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
   });
 
+  socket.on('video time', function(time){
+    io.emit('video time', time);
+
+  });
+
   socket.on('video start', function(){
     io.emit('video start');
+  });
+
+  socket.on('video stop', function(){
+    io.emit('video stop');
   });
 
 
