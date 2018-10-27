@@ -26,11 +26,15 @@ io.on('connection', function(socket) {
   //   socket.broadcast.emit('iframe info', videoInfo.duration);
   // });
 
-  socket.on('chat message', function(msg,user){
+  socket.on('chat message', function(msg){
     io.emit('chat message', msg);
-    console.log(user);
-
   });
+
+  socket.on('video start', function(){
+    io.emit('video start');
+  });
+
+
 
   socket.on('disconnect',function(){
       socket.broadcast.emit('user left');
