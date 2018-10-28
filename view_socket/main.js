@@ -14,7 +14,7 @@ function onYouTubeIframeAPIReady() {
 };
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  event.target.playVideo();
+  // event.target.playVideo();
   event.target.mute();
 
 }
@@ -29,6 +29,7 @@ function onPlayerStateChange(event) {
     done = true;
   }
   socket.emit('video time', event.target.getCurrentTime());
+
   // $('#ytTime').append($('<p>').text(event.target.getCurrentTime()));
 }
 
