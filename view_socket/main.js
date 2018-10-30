@@ -10,15 +10,15 @@ function onYouTubeIframeAPIReady() {
     //youtube id
     videoId: 'zOeUbbJXtRQ',
     events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
     }
   });
 };
 
 // The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-// event.target.playVideo();
+  // event.target.playVideo();
   event.target.mute();
 }
 //    The API calls this function when the player's state changes.
@@ -44,64 +44,65 @@ function onclickStart() {
 };
 
 //when submitting, username and message will be sent to client
+//if username has no input, sends a client "no username found"
 $(function () {
-       $('form').submit(function(){
-         var user = $('#username').val();
-         if(user)
-         socket.emit('chat message', user + ": " + $('#m').val());
+  $('form').submit(function(){
+    var user = $('#username').val();
+    if(user)
+    socket.emit('chat message', user + ": " + $('#m').val());
 
-         else {
-           socket.emit('chat message', "No username found");
-         }
+    else {
+      socket.emit('chat message', "No username found");
+    }
 
-         return false;
-       });
+    return false;
+  });
+//after submission, input will be cleared
+  $(document).ready(function() {
+    //clear when submitted
+    $('form').submit(function() {
+      $('#m').val("");
+    });
+  });
 
-       $(document).ready(function() {
-          //clear when submitted
-       $('form').submit(function() {
-           $('#m').val("");
-         });
-       });
+  $('#startBtn').click(function(){
+    socket.emit('video start');
+  });
 
-       $('#startBtn').click(function(){
-         socket.emit('video start');
-       });
-
-       $('#pauseBtn').click(function(){
-         socket.emit('video stop');
-       });
-
-
-       // client receives msg from server
-       socket.on('chat message', function(msg){
-         $('#messages').append($('<p>').text(msg));
-
-         window.scrollTo(0, document.body.scrollHeight);
-       });
-
-       socket.on('video time', function(time){
-          player.seekTo(time, true);
-       });
-
-       socket.on('video start', function(){
-         onclickStart();
-       });
-
-       socket.on('video stop', function(){
-         onclickPause();
-       });
+  $('#pauseBtn').click(function(){
+    socket.emit('video stop');
+  });
 
 
-     socket.on('user left', function(data){
-       $('#messages').append($('<p>').text("a user has been disconnected"));
-     });
+  // client receives msg from server
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<p>').text(msg));
 
-     socket.on('user joined', function(){
-       $('#messages').append($('<p>').text("a user has joined"));
-     });
+    window.scrollTo(0, document.body.scrollHeight);
+  });
 
-     socket.on('iframe info', function(data){
-       $('#messages').append($('<p>').text("iframe video info : " + data));
-     });
-   });
+  socket.on('video time', function(time){
+    player.seekTo(time, true);
+  });
+
+  socket.on('video start', function(){
+    onclickStart();
+  });
+
+  socket.on('video stop', function(){
+    onclickPause();
+  });
+
+
+  socket.on('user left', function(data){
+    $('#messages').append($('<p>').text("a user has been disconnected"));
+  });
+
+  socket.on('user joined', function(){
+    $('#messages').append($('<p>').text("a user has joined"));
+  });
+
+  socket.on('iframe info', function(data){
+    $('#messages').append($('<p>').text("iframe video info : " + data));
+  });
+});
