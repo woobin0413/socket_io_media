@@ -1,10 +1,13 @@
 //client sends data to server
 var socket = io();
 var player;
+
+//youtube iframe information
 function onYouTubeIframeAPIReady() {
   player = new YT.Player('player', {
     height: '360',
     width: '640',
+    //youtube id
     videoId: 'zOeUbbJXtRQ',
     events: {
             'onReady': onPlayerReady,
@@ -13,13 +16,12 @@ function onYouTubeIframeAPIReady() {
   });
 };
 
-//4. The API will call this function when the video player is ready.
+// The API will call this function when the video player is ready.
 function onPlayerReady(event) {
 // event.target.playVideo();
   event.target.mute();
-
 }
-// 5. The API calls this function when the player's state changes.
+//    The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
 var done = false;
@@ -29,21 +31,20 @@ function onPlayerStateChange(event) {
     done = true;
   }
   socket.emit('video time', event.target.getCurrentTime());
-
-  // $('#ytTime').append($('<p>').text(event.target.getCurrentTime()));
 }
 
+// when click on pause button, other videoes stop
 function onclickPause() {
   player.pauseVideo();
 };
-
+// when click on start button, other videoes stop
 function onclickStart() {
   player.playVideo();
 
 };
 
+//when submitting, username and message will be sent to client
 $(function () {
-
        $('form').submit(function(){
          var user = $('#username').val();
          if(user)
@@ -62,7 +63,7 @@ $(function () {
            $('#m').val("");
          });
        });
-       
+
        $('#startBtn').click(function(){
          socket.emit('video start');
        });
