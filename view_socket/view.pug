@@ -14,16 +14,17 @@ html
 
     button#pauseBtn(type='button', onclick='onclickPause()') pause
     button#startBtn(type='button', onclick='onclickStart()') start
-    br
+    
     div#ytTime
-      
+ 
       
     | First Name: 
     input#username(type='text')
     div#messages
     form(action='')
-      input#m(autocomplete='off')
       button Send
+      input#m(autocomplete='off')
+      
       
   script(src='https://cdn.socket.io/socket.io-1.2.0.js')
   script(src='http://www.youtube.com/player_api')
@@ -31,4 +32,5 @@ html
   script(src='/socket.io/socket.io.js')
   script
     include main.js
-  
+  style
+    include style.css

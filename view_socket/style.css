@@ -1,0 +1,33 @@
+iframe {
+    border-style: solid;
+    color: yellow;
+    border-width: 5px;
+}
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 23px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 33px;
+}
+
+input {
+    width: 20%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+#messages > p {
+    border-style: solid;
+    border-color: coral;
+    border-width: 5px;
+    font-weight: bold;
+    font-size: 33px;
+}

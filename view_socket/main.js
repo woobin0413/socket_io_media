@@ -12,13 +12,13 @@ function onYouTubeIframeAPIReady() {
     }
   });
 };
-// 4. The API will call this function when the video player is ready.
+
+//4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-  // event.target.playVideo();
+// event.target.playVideo();
   event.target.mute();
 
 }
-
 // 5. The API calls this function when the player's state changes.
 //    The function indicates that when playing a video (state=1),
 //    the player should play for six seconds and then stop.
@@ -42,17 +42,27 @@ function onclickStart() {
 
 };
 
-
 $(function () {
-
 
        $('form').submit(function(){
          var user = $('#username').val();
+         if(user)
          socket.emit('chat message', user + ": " + $('#m').val());
+
+         else {
+           socket.emit('chat message', "No username found");
+         }
+
          return false;
        });
 
-
+       $(document).ready(function() {
+          //clear when submitted
+       $('form').submit(function() {
+           $('#m').val("");
+         });
+       });
+       
        $('#startBtn').click(function(){
          socket.emit('video start');
        });
