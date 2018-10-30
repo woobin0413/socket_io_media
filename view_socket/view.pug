@@ -2,30 +2,23 @@ doctype html
 html
   head
   body
-    .video_box
-      .headline
-      .video_play
-        //- iframe(width='500px', height='200px', src='https://www.youtube.com/embed/zOeUbbJXtRQ', frameborder='0', allow='autoplay; encrypted-media', allowfullscreen='')
-      .video_comment
-        ul.messages
     div#player
     br
     
-
+    //- button for pause and start the video
     button#pauseBtn(type='button', onclick='onclickPause()') pause
     button#startBtn(type='button', onclick='onclickStart()') start
     
-    div#ytTime
- 
-      
+    //- username input  
     | First Name: 
     input#username(type='text')
+    //- message form
     div#messages
     form(action='')
       button Send
       input#m(autocomplete='off')
       
-      
+  //- socket.io, jquery, youtubeApi
   script(src='https://cdn.socket.io/socket.io-1.2.0.js')
   script(src='http://www.youtube.com/player_api')
   script(src='https://code.jquery.com/jquery-1.11.1.js')
