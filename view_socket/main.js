@@ -65,10 +65,11 @@ $(function () {
     });
   });
 
+//when clicking on start button, video starts
   $('#startBtn').click(function(){
     socket.emit('video start');
   });
-
+//when clicking on pause button, video stops
   $('#pauseBtn').click(function(){
     socket.emit('video stop');
   });
@@ -77,18 +78,20 @@ $(function () {
   // client receives msg from server
   socket.on('chat message', function(msg){
     $('#messages').append($('<p>').text(msg));
-
     window.scrollTo(0, document.body.scrollHeight);
   });
 
+  //when clicking on different part of the video, it will seek to play the specific time
   socket.on('video time', function(time){
     player.seekTo(time, true);
   });
 
+  //when clicking on start button, video starts
   socket.on('video start', function(){
     onclickStart();
   });
 
+  //when clicking on pause button, video stops
   socket.on('video stop', function(){
     onclickPause();
   });
